@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import * as actions from '../actions/index';
 import { bindActionCreators } from 'redux'
 import Form from "../components/Form";
+import Error from "../components/Error";
 
 var Layout = React.createClass({
 
@@ -21,7 +22,6 @@ var Layout = React.createClass({
             return (
                 <div>
                     <Form />
-                    <h2>Posts on {this.props.subreddit.currentSubreddit} Subreddit</h2>  
                     <SubredditList posts={this.props.subreddit.result}/>
                 </div>
             )
@@ -30,8 +30,7 @@ var Layout = React.createClass({
         return (
             <div>
                 <Form  />
-                <h2>The error below happened when fetching the posts</h2>
-                {this.props.subreddit.error.message}
+                <Error error={this.props.subreddit.error}/>
             </div>
         )
     }

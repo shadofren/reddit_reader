@@ -1,10 +1,14 @@
-$primary: #006699;
+$primary: green;
 
 body {
-	background-color: cornsilk;
+	background-color: cornflowerblue;
 }
 h2 {
 	color: $primary;
+}
+
+a {
+	text-decoration: none;
 }
 
 ul {

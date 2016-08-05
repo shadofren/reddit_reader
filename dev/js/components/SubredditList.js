@@ -6,9 +6,11 @@ import {bindActionCreators} from 'redux';
 class SubredditList extends React.Component {
     createListItems() {
         return this.props.posts.map((post) => {
+            let url = `http://www.reddit.com${post.data.permalink}`;
+
             return (
                 <li key={post.data.id}>
-                    <h3><a href={post.data.url}>{post.data.title}</a></h3>
+                    <h3><a href={url}>{post.data.title}</a></h3>
                     <span>Created <TimeAgo date={post.data.created_utc*1000} />
 </span>
                 </li>
@@ -21,6 +23,7 @@ class SubredditList extends React.Component {
         }
         return (
             <div>
+                <h2>Posts on {this.props.subreddit.currentSubreddit} Subreddit:</h2>  
                 <ul>
                     {this.createListItems()}
                 </ul>

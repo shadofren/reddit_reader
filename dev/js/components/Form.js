@@ -7,7 +7,8 @@ var Form = React.createClass({
     getInitialState(){
         return {
             subreddit: "",
-            filter: "hot"
+            filter: "hot",
+            empty_query: false
         };
     },
     handleChangeSubreddit(e){
@@ -18,10 +19,20 @@ var Form = React.createClass({
     },
     handleSubmit(e){
         e.preventDefault();
+        if (this.state.subreddit == ""){
+            this.setState({empty_query:true});
+            return;
+        } else {
+            this.setState({empty_query:false});
+        }
         this.props.setSubreddit(this.state.subreddit);
         this.props.fetchSubreddit(this.state.subreddit, this.state.filter);
     },
     render(){
+        let warning = ""
+        if (this.state.empty_query){
+            warning = "Please fill in the subreddit";
+        }
         return (
             <div>
                 <h2>Please enter the subreddit you'd like to read</h2>
@@ -31,6 +42,7 @@ var Form = React.createClass({
                         onChange={this.handleChangeSubreddit} 
                         placeholder="Enter subreddit to fetch..."
                         value={this.state.subreddit}/>
+                    <span style={{color: 'red'}}> {warning}</span>
                     <br />
                     <label>Filter by: </label>
                     <select onChange={this.handleFilter}>
