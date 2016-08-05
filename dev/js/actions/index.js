@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export function fetchSubreddit(subreddit)
+export function fetchSubreddit(subreddit, filter)
 {   
 
-    let link = `http://www.reddit.com/r/${subreddit}/hot.json?sort=hot`;
+    let link = `http://www.reddit.com/r/${subreddit}/${filter}.json?sort=${filter}`;
     return function(dispatch){
         dispatch({type: "FETCH_SUBREDDIT_START"})
         //do async
