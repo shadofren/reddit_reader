@@ -19,7 +19,7 @@ class SubredditList extends React.Component {
     }
     render(){
         if (this.props.posts.length == 0){
-            return (<div><p>Fetching posts...</p></div>);
+            return (<div></div>);
         }
         return (
             <div>

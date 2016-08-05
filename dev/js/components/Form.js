@@ -8,6 +8,8 @@ var Form = React.createClass({
         return {
             subreddit: "",
             filter: "hot",
+            search_query: "",
+            sort_by: "relevance",
             empty_query: false
         };
     },
@@ -17,16 +19,23 @@ var Form = React.createClass({
     handleFilter(e){
         this.setState({filter: e.target.value});
     },
+    handleChangeSearch(e){
+        this.setState({search_query: e.target.value});
+    },
+    handleSort(e){
+        this.setState({sort_by: e.target.value});
+    },
     handleSubmit(e){
         e.preventDefault();
-        if (this.state.subreddit == ""){
+        if (this.state.subreddit == "" && this.state.search == ""){
             this.setState({empty_query:true});
             return;
         } else {
             this.setState({empty_query:false});
         }
         this.props.setSubreddit(this.state.subreddit);
-        this.props.fetchSubreddit(this.state.subreddit, this.state.filter);
+        this.props.fetchData(this.state.subreddit, this.state.filter,
+            this.state.search_query, this.state.sort_by);
     },
     render(){
         let warning = ""
@@ -37,21 +46,36 @@ var Form = React.createClass({
             <div>
                 <h2>Please enter the subreddit you'd like to read</h2>
                 <form onSubmit={this.handleSubmit}>
+                    <span style={{color: 'red'}}> {warning}</span>
                     <label>Subreddit: </label>
-                    <input id="fetchBox" type="text" 
+                    <input id="subredditInput" type="text" 
                         onChange={this.handleChangeSubreddit} 
                         placeholder="Enter subreddit to fetch..."
                         value={this.state.subreddit}/>
-                    <span style={{color: 'red'}}> {warning}</span>
                     <br />
                     <label>Filter by: </label>
-                    <select onChange={this.handleFilter}>
+                    <select id="filter" onChange={this.handleFilter}>
                         <option value="hot">Hot</option>
                         <option value="new">New</option>
                         <option value="rising">Rising</option>
                         <option value="controversial">Controversial</option>
                         <option value="top">Top</option>
                         <option value="gilded">Gilded</option>
+                    </select>
+                    <br />
+                    <label>Search: </label>
+                    <input id="searchInput" type="text" 
+                        onChange={this.handleChangeSearch} 
+                        placeholder="Enter search query..."
+                        value={this.state.search_query}/>
+                    <br />
+                    <label>Sort by: </label>
+                    <select id="sort" onChange={this.handleSort}>
+                        <option value="relevance">Relevance</option>
+                        <option value="hot">Hot</option>
+                        <option value="new">New</option>
+                        <option value="top">Top</option>
+                        <option value="comments">Comments</option>
                     </select>
                     <br />
                     <input type="submit" value="Reload"/>
@@ -63,7 +87,7 @@ var Form = React.createClass({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSubreddit: bindActionCreators(actions.fetchSubreddit, dispatch),
+        fetchData: bindActionCreators(actions.fetchData, dispatch),
         setSubreddit: bindActionCreators(actions.setSubreddit, dispatch)
     };
 }

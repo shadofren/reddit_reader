@@ -1,9 +1,20 @@
 import axios from "axios";
 
-export function fetchSubreddit(subreddit, filter)
+export function fetchData(subreddit, filter, search, sort_by)
 {   
-
-    let link = `http://www.reddit.com/r/${subreddit}/${filter}.json?sort=${filter}`;
+    // the case where both subreddit and search are not given is handled by the function calling this
+    let link = "http://www.reddit.com/";
+    console.log(subreddit, filter, search, sort_by);
+    if (subreddit == ""){
+        link += `search.json?q=${search}&restrict_sr=on&sort=${sort_by}&t=all`;
+    } else {
+        if (search == ""){
+            link += `r/${subreddit}/${filter}.json&sort=${filter}`;
+        } else {
+            link += `r/${subreddit}/search.json?q=${search}&restrict_sr=on&sort=${sort_by}&t=all`;            
+        }
+    }
+    console.log(link);
     return function(dispatch){
         dispatch({type: "FETCH_SUBREDDIT_START"})
         //do async

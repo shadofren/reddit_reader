@@ -9,28 +9,11 @@ import Error from "../components/Error";
 var Layout = React.createClass({
 
     render(){
-        // starting state
-        if (this.props.subreddit.currentSubreddit == "" && this.props.subreddit.error == null){
-            return (
-                <div>
-                    <Form />
-                </div>
-            )
-        }
-        // success case
-        if (this.props.subreddit.fetched){
-            return (
-                <div>
-                    <Form />
-                    <SubredditList currentSubreddit={this.props.subreddit.currentSubreddit} 
-                        posts={this.props.subreddit.result}/>
-                </div>
-            )
-        }
-        // any error
         return (
             <div>
-                <Form  />
+                <Form />
+                <SubredditList currentSubreddit={this.props.subreddit.currentSubreddit} 
+                    posts={this.props.subreddit.result}/>
                 <Error error={this.props.subreddit.error}/>
             </div>
         )
