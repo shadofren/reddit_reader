@@ -23,7 +23,7 @@ class SubredditList extends React.Component {
         }
         return (
             <div>
-                <h2>Posts on {this.props.subreddit.currentSubreddit} Subreddit:</h2>  
+                <h2>Posts on {this.props.currentSubreddit} Subreddit:</h2>  
                 <ul>
                     {this.createListItems()}
                 </ul>
