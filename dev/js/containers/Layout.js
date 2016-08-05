@@ -21,7 +21,7 @@ var Layout = React.createClass({
             return (
                 <div>
                     <Form />
-                    <h2>Hot Posts on {this.props.subreddit.currentSubreddit} Subreddit</h2>  
+                    <h2>Posts on {this.props.subreddit.currentSubreddit} Subreddit</h2>  
                     <SubredditList posts={this.props.subreddit.result}/>
                 </div>
             )

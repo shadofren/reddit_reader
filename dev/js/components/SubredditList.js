@@ -1,4 +1,5 @@
 import React from 'react';
+import TimeAgo from 'react-timeago';
 import {bindActionCreators} from 'redux';
 
 
@@ -8,7 +9,8 @@ class SubredditList extends React.Component {
             return (
                 <li key={post.data.id}>
                     <h3><a href={post.data.url}>{post.data.title}</a></h3>
-                    <h4>{post.data.self_text}</h4>
+                    <span>Created <TimeAgo date={post.data.created_utc*1000} />
+</span>
                 </li>
             );
         });

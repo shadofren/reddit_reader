@@ -17,7 +17,6 @@ var Form = React.createClass({
         this.setState({filter: e.target.value});
     },
     handleSubmit(e){
-        let {dispatch} = this.props;
         e.preventDefault();
         this.props.setSubreddit(this.state.subreddit);
         this.props.fetchSubreddit(this.state.subreddit, this.state.filter);
@@ -37,6 +36,10 @@ var Form = React.createClass({
                     <select onChange={this.handleFilter}>
                         <option value="hot">Hot</option>
                         <option value="new">New</option>
+                        <option value="rising">Rising</option>
+                        <option value="controversial">Controversial</option>
+                        <option value="top">Top</option>
+                        <option value="gilded">Gilded</option>
                     </select>
                     <br />
                     <input type="submit" value="Reload"/>
